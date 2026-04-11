@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asistente Académico</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app-container">
+      <div id="step-1" class="step active">
+        <h2>Bienvenido</h2>
+        <p>Selecciona tu perfil para continuar:</p>
+        <div class="btn-group">
+          <button onclick="nextStep(2, {rol: 'Docente'})">Soy Docente</button>
+          <button onclick="nextStep(2, {rol: 'Estudiante'})">
+            Soy Estudiante
+          </button>
+        </div>
+      </div>
+
+      <div id="step-2" class="step">
+        <h2>Identificación</h2>
+        <p>Ingresa tu correo o documento:</p>
+        <input type="text" id="user-id" placeholder="Correo o Cédula" />
+        <button class="full-btn" onclick="saveId()">Siguiente</button>
+      </div>
+
+      <div id="step-3" class="step">
+        <h2>Asignatura</h2>
+        <p>Elige la materia:</p>
+        <select id="select-materia">
+          <option value="" disabled selected>
+            -- Selecciona una materia --
+          </option>
+          <option value="Cálculo">Cálculo</option>
+          <option value="Estadística">Estadística</option>
+          <option value="Biología">Biología</option>
+          <option value="Química">Química</option>
+          <option value="Física">Física</option>
+          <option value="Programación">Programación</option>
+          <option value="Economía">Economía</option>
+          <option value="Psicología">Psicología</option>
+          <option value="Derecho">Derecho</option>
+        </select>
+        <button
+          class="full-btn spacing-top"
+          onclick="processMateriaSelection()"
+        >
+          Continuar
+        </button>
+      </div>
+
+      <div id="step-docente-upload" class="step">
+        <h2>Panel de Gestión</h2>
+        <p>Carga información para: <b id="display-materia"></b></p>
+
+        <div class="upload-section">
+          <label>📁 Tareas o Trabajos</label>
+          <input type="file" id="file-tareas" />
+        </div>
+        <div class="upload-section">
+          <label>📅 Cronograma de Fechas</label>
+          <input type="file" id="file-cronograma" />
+        </div>
+        <div class="upload-section">
+          <label>📚 Material de Investigación</label>
+          <input type="file" id="file-investigacion" />
+        </div>
+
+        <button
+          class="secondary full-btn"
+          onclick="nextStep(4, {status: 'data_loaded'})"
+        >
+          Guardar y Continuar
+        </button>
+      </div>
+
+      <div id="step-4" class="step">
+        <h2>Consulta</h2>
+        <p id="consulta-intro"></p>
+        <div class="btn-group">
+          <button onclick="nextStep(5, {tipo: 'Fechas'})">Fechas</button>
+          <button onclick="nextStep(5, {tipo: 'Temas'})">Temas</button>
+          <button onclick="nextStep(5, {tipo: 'Abierta'})">
+            Pregunta Abierta
+          </button>
+        </div>
+      </div>
+
+      <div id="step-5" class="step">
+        <div id="chat-info"></div>
+        <div id="chat-window" id="chat-messages">
+            <div class="bot-msg">
+                Hola, estamos en <b><span id="final-materia"></span></b>. ¿En qué puedo ayudarte?
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <textarea id="user-input" placeholder="Escribe tu duda aquí..."></textarea>
+            <button class="full-btn secondary" onclick="sendMessage()">Enviar Mensaje</button>
+            <button class="full-btn link-btn" onclick="location.reload()">Reiniciar Asistente</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
